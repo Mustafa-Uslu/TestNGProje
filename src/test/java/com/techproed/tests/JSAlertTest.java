@@ -63,7 +63,6 @@ public class JSAlertTest {
         // alert' icindeki"Cancel" butonuna tiklar.
         driver.switchTo().alert().dismiss();
 
-
     }
 
     @Test
