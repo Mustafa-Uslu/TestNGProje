@@ -23,7 +23,7 @@ public class Ornek_HotelOlusturma extends TestBase {
 
     }
 
-    @Test ()
+    @Test
     public void hotelCreate(){
     driver.findElement(By.id("Code")).sendKeys("Alm01");
     driver.findElement(By.id("Name")).sendKeys("Mustafa");
@@ -37,6 +37,7 @@ public class Ornek_HotelOlusturma extends TestBase {
     select.selectByIndex(1);
     driver.findElement(By.id("btnSubmit")).click();
 
+     //Thread.sleep(2000); //kullanilabilir.
     WebDriverWait wait=new WebDriverWait(driver,30);
     WebElement mesaj=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='bootbox-body']")));
     System.out.println(mesaj.getText());
