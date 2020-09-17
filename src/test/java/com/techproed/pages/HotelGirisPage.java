@@ -35,8 +35,8 @@ public class HotelGirisPage {
         public WebElement MaxChildCount;
         @FindBy(id = "btnSubmit")
         public WebElement saveButonu;
-    @FindBy ( xpath = "//*[.='HotelRoom was inserted successfully']")
-    public WebElement basariliYazisi;
+        @FindBy ( xpath = "//*[.='HotelRoom was inserted successfully']")
+        public WebElement basariliYazisi;
     }
 
 

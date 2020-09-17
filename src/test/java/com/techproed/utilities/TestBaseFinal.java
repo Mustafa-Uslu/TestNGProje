@@ -10,38 +10,50 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-public abstract class TestBaseFinal {
+public abstract class TestBaseFinal {   //asagidaki 4 nes
+
+    //asagidaki 4 taneyi, Raporlar icin olusturmamiz gerekir.
     protected WebDriver driver;
     protected static ExtentReports extentReports;
     protected static ExtentTest extentTest;
     protected static ExtentHtmlReporter extentHtmlReporter;
-    @BeforeTest(alwaysRun = true)
+
+    //Tüm test isleminden önce calisir. TestNG kendi raporunu olusturmaz. oyüzden farkli bir kütüphaneya ihtiyac duyariz.
+    @BeforeTest(alwaysRun = true)    //alwaysRun: Herzaman calistir
     public void setUpTest() {//This is how to set up Extent report. We will create and use this one in out test classes
         extentReports = new ExtentReports();//1. create object to set the location of the report
+        //Rapor olustuktan sonra, raporumuzu nereye eklensin estiyorsaniz ,buraya yaziyorsunuz.
         String filePath = System.getProperty("user.dir") + "/test-output/myprojectreport.html";//create a custom report in the current project.
-        //Folder name = test-output, File name = report.html
+        //oluşturmak istediğimiz raporu (html formatında) başlatıyoruz, filePath ile dosya yolunu belirliyoruz.
+        //Folder name = test-output, File name = report.html    //benimraporum da diyebilirsiniz.
         //String filePath = System.getProperty("user.dir") + "\\test-output\\report.html";//THIS IS FOR WINDOWS USER
         extentHtmlReporter = new ExtentHtmlReporter(filePath);//2. creating the report with the path we created
         extentReports.attachReporter(extentHtmlReporter);//3. attaching the html report to our custom report
+
+        // İstediğiniz bilgileri buraya ekeyebiliyorsunuz.
         //WE CAN ADD CUSTOM INFO. NOT NECESSARY. JUST TO GIVE MORE INFORMATION TO THE USER OR TEAM
         extentReports.setSystemInfo("Environment", "Environment Name");
         extentReports.setSystemInfo("Browser", ConfigurationReader.getProperty("browser"));
-        extentReports.setSystemInfo("Automation Engineer", "ENGINEER INFORMATION");
-        extentHtmlReporter.config().setDocumentTitle("FHC Trip Reports");
-        extentHtmlReporter.config().setReportName("FHC Trip Automation Reports");
+        extentReports.setSystemInfo("Automation Engineer", "MUSTAFA_ENGINEER INFORMATION");
+        extentHtmlReporter.config().setDocumentTitle("Google Arama Testi");
+        extentHtmlReporter.config().setReportName("Google Arama Automation Reports");
     }
+
+    //Her test methodundan sonra eger testte hata varsa, ekran görüntüsü alip rapora ekliyorduk.
     @AfterMethod(alwaysRun = true)//In AfterMethod, we are getting the screenshots and attaching the report when test fails
     public void tearDownMethod(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {//When test case fails, then take the screenshot and attached the report
+                                                        //  eğer testin sonucu başarısızsa
             String screenshotLocation = ReusableMethods.getScreenshot(result.getName());//getScreenshot is coming from ReusableMethods
             extentTest.fail(result.getName());
             extentTest.addScreenCaptureFromPath(screenshotLocation);//adding the screenshot to the report
             extentTest.fail(result.getThrowable());
-        } else if (result.getStatus() == ITestResult.SKIP) {
-            extentTest.skip("Test Case is skipped: " + result.getName());
+        } else if (result.getStatus() == ITestResult.SKIP) {        // eğer test çalıştırılmadan geçilmezse
+            extentTest.skip("Test Case is skipped: " + result.getName());   //Ignore olanlar.
         }
         Driver.closeDriver();
     }
+    // Raporlandırmayı sonlandırıyorduk.
     @AfterTest(alwaysRun = true)
     public void tearDownTest() {
         extentReports.flush();

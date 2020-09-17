@@ -18,7 +18,7 @@ class FhcTripHotelCreateTest extends TestBase {
     public void  girisTesti(){
         FhcTripHotelCreatePage fhcTripHotelCreatePage = new FhcTripHotelCreatePage(driver);
         fhcTripHotelCreatePage.kodKutusu.sendKeys("1234");
-        fhcTripHotelCreatePage.adresKutusu.sendKeys("Çıkmaz sk.");
+        fhcTripHotelCreatePage.adresKutusu.sendKeys("Cıkmaz sk.");
         fhcTripHotelCreatePage.emailKutusu.sendKeys("techproed@techproed.com");
         fhcTripHotelCreatePage.nameKutusu.sendKeys("Techproed");
         fhcTripHotelCreatePage.telefonKutusu.sendKeys("1223454534");

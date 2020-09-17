@@ -30,7 +30,7 @@ public class DependsOnMethodsTest {
         driver.get("https://google.com"); //amazonTestini googleTest e bagladik
     }
     @Test (priority = 2)
-    public void fecebookTest() {
+    public void facebookTest() {
         driver.get("https://facebook.com");
     }
 

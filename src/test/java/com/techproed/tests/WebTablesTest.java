@@ -120,5 +120,4 @@ public class WebTablesTest extends TestBase {
         System.out.println(hucre.getText());
     }
 
-
 }

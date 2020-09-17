@@ -45,14 +45,14 @@ public class FileDownloadTest extends TestBase {
     public void dosyaDownload(){
         // C:\Users\isimsiz\Downloads\Amsterdam.jpg
         driver.get("http://the-internet.herokuapp.com/download");
-        WebElement amsterdamLinki = driver.findElement(By.partialLinkText("Amsterdam.jpg"));
+        WebElement amsterdamLinki = driver.findElement(By.partialLinkText("logo.png"));
         amsterdamLinki.click();
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        boolean varMi = Files.exists(Paths.get("D:\\BELGELERİM\\Amsterdam.jpg"));
+        boolean varMi = Files.exists(Paths.get("D:\\BELGELERİM\\logo.png"));
         Assert.assertTrue(varMi);
 
     }
