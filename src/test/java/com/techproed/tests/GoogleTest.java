@@ -13,8 +13,7 @@ public class GoogleTest extends TestBase {
         // GooglePage class'ından bir tane nesne oluşturduk. Parametre
         // olarak şuan kullandığımız driver'ı gönderdik.
         GooglePage googlePage = new GooglePage(driver);
-        googlePage.aramaKutusu.sendKeys("Selamlar..");
-
+        googlePage.aramaKutusu.sendKeys("Selamlar google..");
 
     }
 }

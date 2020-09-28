@@ -1,5 +1,4 @@
 package com.techproed.utilities;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,34 +8,29 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
 import java.util.concurrent.TimeUnit;
-
-public class Driver {
-    //Driver class, driver instance'i baslatmak icin kullanilir.(Sinngleton Driver)
-    //Ihtiyacimiz oldugunda driver'i kurmak ve baslatmak icin kullaniriz.
-    //Driver null oldugunda create edip baslatacagiz.(if driver==null)
-    //Driver classi farkli browserlar(tarayici) ile de kullanacagimiz sekilde olusturacagiz.
+public class DriverCross {
     // Eğer bir class'tan NESNE ÜRETİLMESİNİ İSTEMİYORSANIZ
     // constructor'ı private yapabilirsiniz (Singleton Class)
-    private Driver(){
-        //Baska obje olusturulmasini istemedigimiz icin create ediyoruz.
-    }
-    //driver instance olusturalim
+    private DriverCross(){ }
     // WebDriver nesnemizi, static olarak oluşturduk, çünkü program başlar başlamaz
     // hafızada yer almasını istiyoruz.
     static WebDriver driver;
-    //driver'i baslatmak icin statik bir metod olusturalim
     // Programın herhangi bir yerinden getDriver() methodu çağırılarak
     // hafıza STATIC olarak oluşturulmuş DRIVER nesnesine erişebiliriz.
     // Yani yeniden WebDriver nesnesi oluşturmak zorunda değiliz.
     //Driver.getDriver()
-    public static WebDriver getDriver(){
+    public static WebDriver getDriver(String browser){
         // Eğer driver nesnesi hafızada boşsa, oluşturulmamışsa yeniden oluşturmana gerek yok.
         // Eğer null ise, yeniden oluşturabilirsin.
         // Sadece ilk çağırıldığında bir tane nesne üret, sonraki çağırmalarda var olan nesnesi kullan.
-        if(driver==null){
-            switch (ConfigurationReader.getProperty("browser")){
+        // Eğer browser olarak gelen parametrenin değeri "null" ise, yani boş bir değer geldiyse
+        // o zaman güvenlik önlemi olarak, .properties dosyasından browser değerini al ve kullan
+
+        //Güvenlik olarak bu code yaziyoruy ve eğer browser'in değeri null değilse hangisi geldiyse onu kullanabilirsiniz.
+        browser = browser == null ? ConfigurationReader.getProperty("browser") : browser ;
+        if(driver == null){
+            switch (browser){
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
@@ -45,11 +39,11 @@ public class Driver {
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
                     break;
-                // firefox hatasi verirse asagidakiyle degistirebilirsiniz. ve TestBaseCross tanda degistirin, xml 'i de
+               // firefox hatasi verirse asagidakiyle degistirebilirsiniz. ve TestBaseCross tanda degistirin, xml 'i de
                 case "edge":
                     WebDriverManager.edgedriver().setup();
-                    driver = new EdgeDriver();
-                    break;
+                     driver = new EdgeDriver();
+                     break;
                 case "ie":
                     WebDriverManager.iedriver().setup();
                     driver = new InternetExplorerDriver();
@@ -68,17 +62,15 @@ public class Driver {
                     break;
             }
         }
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
         return driver;
     }
-
     public static void closeDriver(){
         // Eğer driver nesnesi NULL değilse, yani hafızada varsa
-        if(driver!=null){  //eger driver chrome'u isaret ediyorsa
-            driver.quit();  // driver'i kapat
-            driver=null; // driver'ı hafızadan temizle. // driver'in null oldugundan emin olmak icin tekrar null olarak atayalim.
-        }               //Boylelikle driver'i tekrar baslatabilirim.
-    }                   //Multi Browser Test(chrome, firefox, ie ...) yaparken bu onemli olacaktir.
-
+        if (driver != null){
+            driver.quit();  // driver'ı kapat
+            driver = null;  // driver'ı hafızadan temizle.
+        }
+    }
 }

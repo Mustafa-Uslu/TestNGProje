@@ -16,6 +16,7 @@ class FhcTripHotelCreateTest extends TestBase {
 
     @Test (  groups = {"fhctrip", "hotelolusturma"} )
     public void  girisTesti(){
+        giris();
         FhcTripHotelCreatePage fhcTripHotelCreatePage = new FhcTripHotelCreatePage(driver);
         fhcTripHotelCreatePage.kodKutusu.sendKeys("1234");
         fhcTripHotelCreatePage.adresKutusu.sendKeys("Cıkmaz sk.");

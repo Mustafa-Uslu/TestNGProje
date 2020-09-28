@@ -9,6 +9,7 @@ import java.util.List;
 
 public class GooglePage {
     // boş bir tane driver değişkeni oluşturduk.
+
     WebDriver driver;
     public GooglePage(WebDriver driver){
         // parametre olarak gelen driver nesnesini, bu class'ta oluşturduğumuz
@@ -24,7 +25,7 @@ public class GooglePage {
     /*
     @FindBy ( xpath = "//tbody/tr")
     public List<WebElement> liste;  // findElements (s harfine dikkat)
-    */
 
+    */
 
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Paralel Test 1" parallel="tests" thread-count="2" >
+<test name="Smoketest Paralel">
+    <packages>
+        <!--  Çalıştırmak istediğimiz paketleri buraya yazabiliyoruz  -->
+        <!--  CTRL + SHIFT + F10  -->
+        <package name="com.techproed.smoketests"></package>
+    </packages>
+</test>
+<test name="Excel Paralel">
+    <packages>
+        <package name="com.techproed.excelautomation"></package>
+    </packages>
+</test>
+</suite>

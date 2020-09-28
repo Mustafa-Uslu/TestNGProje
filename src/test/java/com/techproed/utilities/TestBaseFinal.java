@@ -20,10 +20,12 @@ public abstract class TestBaseFinal {   //asagidaki 4 nes
 
     //Tüm test isleminden önce calisir. TestNG kendi raporunu olusturmaz. oyüzden farkli bir kütüphaneya ihtiyac duyariz.
     @BeforeTest(alwaysRun = true)    //alwaysRun: Herzaman calistir
+
     public void setUpTest() {//This is how to set up Extent report. We will create and use this one in out test classes
         extentReports = new ExtentReports();//1. create object to set the location of the report
         //Rapor olustuktan sonra, raporumuzu nereye eklensin estiyorsaniz ,buraya yaziyorsunuz.
         String filePath = System.getProperty("user.dir") + "/test-output/myprojectreport.html";//create a custom report in the current project.
+
         //oluşturmak istediğimiz raporu (html formatında) başlatıyoruz, filePath ile dosya yolunu belirliyoruz.
         //Folder name = test-output, File name = report.html    //benimraporum da diyebilirsiniz.
         //String filePath = System.getProperty("user.dir") + "\\test-output\\report.html";//THIS IS FOR WINDOWS USER
@@ -33,7 +35,7 @@ public abstract class TestBaseFinal {   //asagidaki 4 nes
         // İstediğiniz bilgileri buraya ekeyebiliyorsunuz.
         //WE CAN ADD CUSTOM INFO. NOT NECESSARY. JUST TO GIVE MORE INFORMATION TO THE USER OR TEAM
         extentReports.setSystemInfo("Environment", "Environment Name");
-        extentReports.setSystemInfo("Browser", ConfigurationReader.getProperty("browser"));
+        extentReports.setSystemInfo("Browser", ConfigurationReader.getProperty("browser")); // chrome, firefox
         extentReports.setSystemInfo("Automation Engineer", "MUSTAFA_ENGINEER INFORMATION");
         extentHtmlReporter.config().setDocumentTitle("Google Arama Testi");
         extentHtmlReporter.config().setReportName("Google Arama Automation Reports");
